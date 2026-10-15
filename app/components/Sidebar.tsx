@@ -130,7 +130,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
           {isOpen && <span className="whitespace-nowrap">Settings</span>}
         </button>
 
-        {/* Sign Out Button */}
+      
         <button
           title={!isOpen ? "Sign Out" : undefined}
           className={`flex items-center gap-3 w-full py-2.5 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-500 transition-all text-sm font-medium mt-2 ${
