@@ -1,9 +1,11 @@
-'use client';
+import React from 'react';
+import LeaderboardContent from './components/LeaderboardContent';
 
-import React, { useState } from 'react';
+// Server Component - can fetch leaderboard data here
+// In production, could use searchParams:
+// export default function Leaderboard({ searchParams }: { searchParams: { filter?: string } })
 
 const Leaderboard = () => {
-  const [filter, setFilter] = useState('national');
 
   const topThree = [
     {
@@ -58,27 +60,8 @@ const Leaderboard = () => {
           <p className="text-sm text-slate-500">See how you rank against your peers</p>
         </div>
 
-        {/* Filter Toggle */}
-        <div className="bg-slate-100 p-1 rounded-full flex items-center w-fit self-start sm:self-auto border border-slate-200">
-          <button
-            onClick={() => setFilter('national')}
-            className={`px-5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${filter === 'national'
-                ? 'bg-[#0f172a] text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
-              }`}
-          >
-            National
-          </button>
-          <button
-            onClick={() => setFilter('studyGroup')}
-            className={`px-5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${filter === 'studyGroup'
-                ? 'bg-[#0f172a] text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
-              }`}
-          >
-            Study Group
-          </button>
-        </div>
+        {/* Filter - handled by client component */}
+        <LeaderboardContent />
       </div>
 
       {/* Podium Section */}
@@ -174,8 +157,8 @@ const Leaderboard = () => {
             <div
               key={idx}
               className={`grid grid-cols-12 items-center px-4 py-3 rounded-xl text-sm transition-colors ${row.isUser
-                  ? 'bg-indigo-100/70 border border-indigo-200/80 font-bold text-indigo-950'
-                  : 'bg-white/60 hover:bg-white text-slate-700'
+                ? 'bg-indigo-100/70 border border-indigo-200/80 font-bold text-indigo-950'
+                : 'bg-white/60 hover:bg-white text-slate-700'
                 }`}
             >
               <div className="col-span-2 sm:col-span-2 font-bold text-slate-900">{row.rank}</div>

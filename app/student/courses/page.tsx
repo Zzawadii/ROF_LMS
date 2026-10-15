@@ -2,7 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, GitFork, Layers } from 'lucide-react';
 
-// Sample data structure
+// This can be a Server Component - no interactivity needed
+// Data fetching would happen here in a real app
+
 const courses = [
   {
     id: '1',
@@ -59,8 +61,8 @@ export default function CoursesPage() {
             )}
 
             {/* Banner/Image Area - Now clickable */}
-            <Link href={`/courses/${course.slug}`}>
-              <div className="relative flex h-36 w-full items-end rounded-xl bg-gradient-to-r from-blue-300 via-blue-400 to-indigo-300 p-3 cursor-pointer hover:opacity-90 transition-opacity">
+            <Link href={`/student/courses/${course.slug}`}>
+              <div className="relative flex h-36 w-full items-center justify-end rounded-xl bg-gradient-to-r from-blue-300 via-blue-400 to-indigo-300 p-3 cursor-pointer hover:opacity-90 transition-opacity">
                 <span className="text-xs font-medium text-white/90">
                   [{course.code}] {course.lecture}
                 </span>
@@ -69,7 +71,7 @@ export default function CoursesPage() {
 
             {/* Title & Description */}
             <div className="mt-4">
-              <Link href={`/courses/${course.slug}`}>
+              <Link href={`/student/courses/${course.slug}`}>
                 <h2 className="text-xl font-bold text-gray-900 hover:text-indigo-600 cursor-pointer transition-colors">{course.title}</h2>
               </Link>
               <p className="mt-1 text-xs text-gray-500">
@@ -81,21 +83,21 @@ export default function CoursesPage() {
 
             {/* Buttons */}
             <div className="flex flex-wrap items-center gap-2">
-              <Link href={`/courses/${course.slug}`}>
+              <Link href={`/student/courses/${course.slug}`}>
                 <button className="inline-flex items-center gap-1.5 rounded-full bg-indigo-700 px-3.5 py-1.5 text-xs font-medium text-white transition-colors hover:bg-indigo-800">
                   <ChevronRight className="h-3.5 w-3.5" />
                   Continue Learning
                 </button>
               </Link>
 
-              <Link href={`/courses/${course.slug}?tab=practice`}>
+              <Link href={`/student/courses/${course.slug}?tab=practice`}>
                 <button className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200">
                   <GitFork className="h-3.5 w-3.5 text-indigo-600" />
                   Practice
                 </button>
               </Link>
 
-              <Link href={`/courses/${course.slug}?tab=books`}>
+              <Link href={`/student/courses/${course.slug}?tab=books`}>
                 <button className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-indigo-600 transition-colors hover:bg-blue-100">
                   <Layers className="h-3.5 w-3.5 text-indigo-600" />
                   Resources

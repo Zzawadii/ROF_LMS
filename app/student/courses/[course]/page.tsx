@@ -1,9 +1,7 @@
-"use client";
-
-import React, { useState, use, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { ArrowLeft, MessageSquare, BookOpen, FileText } from "lucide-react";
+import CourseTabs from "./components/CourseTabs";
 
 // Mock Database (Acts as your backend for now)
 const courseData: Record<string, any> = {
@@ -91,28 +89,26 @@ const courseData: Record<string, any> = {
   }
 };
 
-export default function DynamicCoursePage({ params }: { params: Promise<{ course: string }> }) {
+// Server Component - reads query params and renders appropriate content
+export default async function DynamicCoursePage({
+  params,
+  searchParams
+}: {
+  params: Promise<{ course: string }>;
+  searchParams: Promise<{ tab?: string }>;
+}) {
   // Unwrap Next.js dynamic params
-  const resolvedParams = use(params);
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+
   const courseSlug = resolvedParams.course.toLowerCase();
+  const tabParam = resolvedSearchParams.tab;
 
-  // Get query params
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab');
-
-  // Tab state handling
-  const [activeTab, setActiveTab] = useState<"overview" | "books" | "papers">("overview");
-
-  // Update tab when query param changes
-  useEffect(() => {
-    if (tabParam === 'books') {
-      setActiveTab('books');
-    } else if (tabParam === 'papers' || tabParam === 'practice') {
-      setActiveTab('papers');
-    } else {
-      setActiveTab('overview');
-    }
-  }, [tabParam]);
+  // Determine active tab from URL
+  const activeTab: "overview" | "books" | "papers" =
+    tabParam === 'books' ? 'books' :
+      tabParam === 'papers' || tabParam === 'practice' ? 'papers' :
+        'overview';
 
   // Get data or fallback to geometry if invalid slug
   const course = courseData[courseSlug] || courseData["geometry"];
@@ -120,7 +116,7 @@ export default function DynamicCoursePage({ params }: { params: Promise<{ course
   return (
     <div className="relative min-h-screen p-8 text-gray-900">
       {/* Back Link */}
-      <Link href="/courses" className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900">
+      <Link href="/student/courses" className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900">
         <ArrowLeft className="h-4 w-4" /> Back to courses
       </Link>
 
@@ -130,26 +126,35 @@ export default function DynamicCoursePage({ params }: { params: Promise<{ course
         <p className="mt-2 text-lg text-gray-600 max-w-2xl">{course.description}</p>
       </div>
 
-      {/* Tabs */}
+      {/* Tabs - Link-based navigation, no client state needed */}
       <div className="mt-6 flex gap-8 border-b border-gray-200 text-sm font-medium">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`pb-3 transition-colors ${activeTab === "overview" ? "border-b-2 border-indigo-600 font-semibold text-indigo-600" : "text-gray-500 hover:text-gray-800"}`}
+        <Link
+          href={`/student/courses/${courseSlug}?tab=overview`}
+          className={`pb-3 transition-colors ${activeTab === 'overview'
+              ? 'border-b-2 border-indigo-600 font-semibold text-indigo-600'
+              : 'text-gray-500 hover:text-gray-800'
+            }`}
         >
           Overview
-        </button>
-        <button
-          onClick={() => setActiveTab("books")}
-          className={`pb-3 transition-colors ${activeTab === "books" ? "border-b-2 border-indigo-600 font-semibold text-indigo-600" : "text-gray-500 hover:text-gray-800"}`}
+        </Link>
+        <Link
+          href={`/student/courses/${courseSlug}?tab=books`}
+          className={`pb-3 transition-colors ${activeTab === 'books'
+              ? 'border-b-2 border-indigo-600 font-semibold text-indigo-600'
+              : 'text-gray-500 hover:text-gray-800'
+            }`}
         >
           Books
-        </button>
-        <button
-          onClick={() => setActiveTab("papers")}
-          className={`pb-3 transition-colors ${activeTab === "papers" ? "border-b-2 border-indigo-600 font-semibold text-indigo-600" : "text-gray-500 hover:text-gray-800"}`}
+        </Link>
+        <Link
+          href={`/student/courses/${courseSlug}?tab=papers`}
+          className={`pb-3 transition-colors ${activeTab === 'papers'
+              ? 'border-b-2 border-indigo-600 font-semibold text-indigo-600'
+              : 'text-gray-500 hover:text-gray-800'
+            }`}
         >
           Past Papers
-        </button>
+        </Link>
       </div>
 
       {/* Content Layout */}
