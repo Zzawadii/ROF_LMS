@@ -16,19 +16,21 @@ export default function MentorLayout({
     };
 
     return (
-        <div className="flex flex-col h-screen bg-[#e2e8f0] overflow-hidden">
-            {/* Navbar - Fixed at top */}
-            <div className="flex-shrink-0 relative z-30">
+        <div className="min-h-screen w-full bg-[#e2e8f0] overflow-x-hidden flex flex-col">
+            {/* Navbar - Scrolls with content */}
+            <div className="w-full flex-shrink-0">
                 <Navbar onMenuClick={toggleSidebar} />
             </div>
 
             {/* Main content area with sidebar */}
-            <div className="flex flex-1 overflow-hidden">
-                {/* Sidebar - Always visible, expands/collapses */}
-                <Sidebar isOpen={isSidebarOpen} />
+            <div className="flex w-full flex-1">
+                {/* Sidebar - Scrolls with content, extends to match content height */}
+                <div className="flex-shrink-0 self-stretch">
+                    <Sidebar isOpen={isSidebarOpen} />
+                </div>
 
-                {/* Main content - Scrollable */}
-                <main className="flex-1 overflow-y-auto">
+                {/* Main content */}
+                <main className="flex-1 min-w-0 w-full">
                     {children}
                 </main>
             </div>

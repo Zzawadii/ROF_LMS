@@ -36,7 +36,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
   return (
     <aside
       className={`${isOpen ? 'w-64 px-4' : 'w-20 px-3'
-        } h-full bg-[#001E4E] text-slate-300 flex flex-col justify-between py-6 select-none overflow-y-auto transition-all duration-300 ease-in-out`}
+        } h-full bg-[#001E4E] text-slate-300 flex flex-col justify-between py-6 select-none transition-all duration-300 ease-in-out`}
     >
       {/* TOP NAVIGATION LINKS */}
       <div className="flex flex-col gap-3">
@@ -118,8 +118,8 @@ export default function Sidebar({ isOpen }: SidebarProps) {
               <Link
                 href="/student/assignments"
                 className={`flex items-center gap-3 w-full py-2 px-3 rounded-lg font-medium text-sm transition-all ${pathname === "/student/assignments"
-                    ? "bg-blue-600/20 text-white"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  ? "bg-blue-600/20 text-white"
+                  : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`}
               >
                 <span className="whitespace-nowrap">All Assignments</span>
@@ -127,8 +127,8 @@ export default function Sidebar({ isOpen }: SidebarProps) {
               <Link
                 href="/student/assignments/results"
                 className={`flex items-center gap-3 w-full py-2 px-3 rounded-lg font-medium text-sm transition-all ${pathname === "/student/assignments/results"
-                    ? "bg-blue-600/20 text-white"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  ? "bg-blue-600/20 text-white"
+                  : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`}
               >
                 <span className="whitespace-nowrap">Results</span>

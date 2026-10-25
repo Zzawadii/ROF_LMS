@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
     return (
         <aside
             className={`${isOpen ? 'w-64 px-4' : 'w-20 px-3'
-                } h-full bg-[#001E4E] text-slate-300 flex flex-col justify-between py-6 select-none overflow-y-auto transition-all duration-300 ease-in-out`}
+                } h-full bg-[#001E4E] text-slate-300 flex flex-col justify-between py-6 select-none transition-all duration-300 ease-in-out`}
         >
             {/* TOP NAVIGATION LINKS */}
             <div className="flex flex-col gap-3">
